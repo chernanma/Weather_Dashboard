@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Raleway:ital,wght@1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="card text-center text-white bg-secondary mb-3 p-3">  
+        <div class="row text-center p-1">
+            <div class="col-md-12">
+               <h1 style="font-family:'Do Hyeon', sans-serif;"><img src="Assets/images/weather.png" width="40" height="40" > Weather Dashboard</h1>
+            </div>                    
+        </div>           
+    </div> 
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="card bg-light mb-3" >
+                <div class="card-header"><h5 style="font-family:'Do Hyeon', sans-serif;"> Search for a City</h5>                    
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="" aria-label="Enter City to Search" >
+                        <div class="input-group-prepend">
+                          <button type="button" class="btn btn-primary" id="search"><img src="Assets/images/search.png" width="20" height="20" ></button>                          
+                        </div>
+                      </div>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Cities</h5>
+                  <div class="list-group">                    
+                    <button type="button" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button>
+                    <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
+                    <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
+                    <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button>
+                  </div>
+                </div>
+              </div>
+        </div>         
+        <div class="col-md-9">    
+            
+            <div class="card bg-light ">
+                <div class="card-header" id="cityheader" ><h4 style="font-family:'Do Hyeon', sans-serif;"> City name and date here  <img class="wicon" src="" alt="Weather icon"></h4></div>
+                <div class="card-body" id="weatherinfo">
+                    <p class="card-text temperature" >Temperature: </p>
+                    <p class="card-text humidity" >Humidity: </p>
+                    <p class="card-text temperature" >Wind Speed: </p>
+                    <p class="card-text humidity" >UV Index: </p>                 
+                </div>
+                <div class="card bg-light ">
+                    <div class="card-header"><h5 style="font-family:'Do Hyeon', sans-serif;"> 5-Day Forecast:</h5></div>
+                    <div class="card-body forecast">
+                        <div class="card-deck">
+                            <div class="card">                              
+                              <div class="card-body" id="dayone">
+                                <h5 class="card-title">Date here</h5>
+                                <div id="icon"><img class="wicon" src="" alt="Weather icon"></div>
+                                <p class="card-text temperature" >T</p>
+                                <p class="card-text humidity" >H</p>                                
+                              </div>                              
+                            </div>
+                            <div class="card">                              
+                              <div class="card-body" id="daytwo">
+                                <h5 class="card-title">Date here</h5>
+                                <div id="icon"><img class="wicondays" src="" alt="Weather icon"></div>
+                                <p class="card-text temperature" >T</p>
+                                <p class="card-text humidity" >H</p>                               
+                            </div>                              
+                            </div>
+                            <div class="card" >                              
+                              <div class="card-body" id="daythree">
+                                <h5 class="card-title">Date here</h5>
+                                <div id="icon"><img class="wicondays" src="" alt="Weather icon"></div>
+                                <p class="card-text temperature" >T</p>
+                                <p class="card-text humidity" >H</p>  
+                              </div>                              
+                            </div>
+                            <div class="card" >                              
+                                <div class="card-body" id="dayfour">
+                                  <h5 class="card-title">Date here</h5>
+                                  <div id="icon"><img class="wicondays" src="" alt="Weather icon"></div>
+                                  <p class="card-text temperature" >T</p>
+                                  <p class="card-text humidity" >H</p>  
+                                </div>                              
+                              </div>
+                              <div class="card" >                              
+                                <div class="card-body" id="dayfive">
+                                  <h5 class="card-title">Date here</h5>
+                                  <div id="icon"><img class="wicondays" src="" alt="Weather icon"></div>
+                                  <p class="card-text temperature" >T</p>
+                                  <p class="card-text humidity" >H</p>  
+                                </div>                              
+                              </div>
+                          </div>
+                      
+                        
+                    
+                    </div>
+                </div>
+            </div>
+            
+        </div>   
+</div> 
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="Assets/js/script.js"></script>
+</body>
+</html>
