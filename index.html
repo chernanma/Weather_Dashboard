@@ -21,7 +21,7 @@
             <div class="card bg-light mb-3" >
                 <div class="card-header"><h5 style="font-family:'Do Hyeon', sans-serif;"> Search for a City</h5>                    
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="" aria-label="Enter City to Search" >
+                        <input type="text" class="form-control" id="searchInput"placeholder="" aria-label="Enter City to Search" >
                         <div class="input-group-prepend">
                           <button type="button" class="btn btn-primary" id="search"><img src="Assets/images/search.png" width="20" height="20" ></button>                          
                         </div>
@@ -29,11 +29,11 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Cities</h5>
-                  <div class="list-group">                    
-                    <button type="button" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button>
-                    <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
-                    <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
-                    <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button>
+                  <div > 
+                    <ul class="list-group" id="cities">
+                      
+                    </ul>                   
+                    
                   </div>
                 </div>
               </div>
@@ -41,12 +41,12 @@
         <div class="col-md-9">    
             
             <div class="card bg-light ">
-                <div class="card-header" id="cityheader" ><h4 style="font-family:'Do Hyeon', sans-serif;"> City name and date here  <img class="wicon" src="" alt="Weather icon"></h4></div>
+                <div class="card-header" id="cityheader" ><h4 id="cityname" style="font-family:'Do Hyeon', sans-serif;"><img class="wicon" src=""></h4></div>
                 <div class="card-body" id="weatherinfo">
                     <p class="card-text temperature" >Temperature: </p>
                     <p class="card-text humidity" >Humidity: </p>
-                    <p class="card-text temperature" >Wind Speed: </p>
-                    <p class="card-text humidity" >UV Index: </p>                 
+                    <p class="card-text windspeed" >Wind Speed: </p>
+                    <p class="card-text" >UV Index: <span class="card-text p-1" id='uv'> </span> </p>                 
                 </div>
                 <div class="card bg-light ">
                     <div class="card-header"><h5 style="font-family:'Do Hyeon', sans-serif;"> 5-Day Forecast:</h5></div>
@@ -55,41 +55,41 @@
                             <div class="card">                              
                               <div class="card-body" id="dayone">
                                 <h5 class="card-title">Date here</h5>
-                                <div id="icon"><img class="wicon" src="" alt="Weather icon"></div>
-                                <p class="card-text temperature" >T</p>
-                                <p class="card-text humidity" >H</p>                                
+                                <div id="icon"><img class="wicondays" src="" ></div>
+                                <p class="card-text dailytemperature" >T</p>
+                                <p class="card-text dailyhumidity" >H</p>                                
                               </div>                              
                             </div>
                             <div class="card">                              
                               <div class="card-body" id="daytwo">
                                 <h5 class="card-title">Date here</h5>
-                                <div id="icon"><img class="wicondays" src="" alt="Weather icon"></div>
-                                <p class="card-text temperature" >T</p>
-                                <p class="card-text humidity" >H</p>                               
+                                <div id="icon"><img class="wicondays" src="" ></div>
+                                <p class="card-text dailytemperature" >T</p>
+                                <p class="card-text dailyhumidity" >H</p>                                
                             </div>                              
                             </div>
                             <div class="card" >                              
                               <div class="card-body" id="daythree">
                                 <h5 class="card-title">Date here</h5>
-                                <div id="icon"><img class="wicondays" src="" alt="Weather icon"></div>
-                                <p class="card-text temperature" >T</p>
-                                <p class="card-text humidity" >H</p>  
+                                <div id="icon"><img class="wicondays" src="" ></div>
+                                <p class="card-text dailytemperature" >T</p>
+                                <p class="card-text dailyhumidity" >H</p>   
                               </div>                              
                             </div>
                             <div class="card" >                              
                                 <div class="card-body" id="dayfour">
                                   <h5 class="card-title">Date here</h5>
-                                  <div id="icon"><img class="wicondays" src="" alt="Weather icon"></div>
-                                  <p class="card-text temperature" >T</p>
-                                  <p class="card-text humidity" >H</p>  
+                                  <div id="icon"><img class="wicondays" src="" ></div>
+                                  <p class="card-text dailytemperature" >T</p>
+                                  <p class="card-text dailyhumidity" >H</p>  
                                 </div>                              
                               </div>
                               <div class="card" >                              
                                 <div class="card-body" id="dayfive">
                                   <h5 class="card-title">Date here</h5>
-                                  <div id="icon"><img class="wicondays" src="" alt="Weather icon"></div>
-                                  <p class="card-text temperature" >T</p>
-                                  <p class="card-text humidity" >H</p>  
+                                  <div id="icon"><img class="wicondays" src="" ></div>
+                                  <p class="card-text dailytemperature" >T</p>
+                                <p class="card-text dailyhumidity" >H</p>  
                                 </div>                              
                               </div>
                           </div>
