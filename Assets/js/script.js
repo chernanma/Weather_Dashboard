@@ -127,7 +127,7 @@ function apiCallout (cityName){
             $('#uv').css('background-color',backcolor);
         }); 
 
-        
+        // Third API callout to pull 5 days forecast Data  
         queryForcast = "http://api.openweathermap.org/data/2.5/forecast?q="+cityName+"&appid="+apiKey;
         console.log(queryForcast);   
         $.ajax({
