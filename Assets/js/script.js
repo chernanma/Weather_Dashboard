@@ -12,6 +12,12 @@ $('#search').on('click',function(){
     var liEl = $('<li>'); // creating Li element to insert in html page
     
     if ($('#searchInput').val() === ""){
+        $('#cityname').text('City Info'); 
+        // Clearing result when input is blank
+        $('.temperature').text('Temperature: ');
+        $('.humidity').text('Humidity: ');
+        $('.windspeed').text('Wind Speed: ');
+        $('.uvindex').text('UV Index: ');
         return;
                 
     }else{
@@ -32,13 +38,17 @@ $('#search').on('click',function(){
 
     }
     }
+    // Cleanig Cities List 
     $('#cities').empty();
+    //Calling loadCities function to load all cities from local storage into City list
     loadCities(Cities.length);
+
     $('#cities li').on('click',function(){
         $('.card-deck').empty();
       apiCallout($(this).text());
       
     });
+    $('#searchInput').val('');
 });
 
 
@@ -60,6 +70,7 @@ function loadCities (numCities){
 }
 
 function apiCallout (cityName){
+    // Initialazing variables
     var apiKey = '4125da2ecdcd852c08efeec865a349a6';    
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid="+apiKey;
     console.log(queryURL);
@@ -85,7 +96,7 @@ function apiCallout (cityName){
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        console.log(response);
+        console.log(response);// Debbuing purposes
         temperature = (9/5)*(parseInt(response.main.temp) - 273.15) + 32 ;
         humidity = response.main.humidity;
         windspeed = response.wind.speed;
@@ -94,6 +105,7 @@ function apiCallout (cityName){
         iconcode= response.weather[0].icon;
         iconurl="http://openweathermap.org/img/w/" + iconcode + ".png";
      
+        //inserting values into html elements
         $('#cityname').text(cityName+' '+date);
         $('.temperature').text('Temperature: '+ parseInt(temperature) +' °F');
         $('.humidity').text('Humidity: '+humidity +' %');
@@ -101,7 +113,7 @@ function apiCallout (cityName){
 
         $("#cityheader").html(`<h4 class="card-title" id="cityname">${response.name+" "}${date+" "}<img id='wiconHeader' src=${iconurl}></h4>`);
      
-         // Second API callout to pull Index UV value  
+         // Second API callout to pull Index UV info  
         queryUVURL = "https://api.openweathermap.org/data/2.5/uvi?lat="+lat+"&lon="+lon+"&appid="+apiKey; 
         console.log(queryUVURL);   
         $.ajax({
@@ -111,6 +123,7 @@ function apiCallout (cityName){
             console.log(responseIndexUV);
             uv = responseIndexUV.value;
             console.log(uv);
+            //Condition to set background color base on UV Index value
             $('#uv').text(uv);
             if (uv < 3){
                 backcolor='green';
@@ -136,9 +149,10 @@ function apiCallout (cityName){
         }).then(function(responseforcast){
             console.log(responseforcast);
             console.log(responseforcast.list.length);
-            
+            // Looping array to pull data for 5 days forecast
             for (var i = 0;i < responseforcast.list.length;i++){
                 if (i === 3 || i === 11 || i === 19 || i === 27 || i === 35){
+                    // creating element and appending to card which will contains all forecast info
                     var cardEl = $('<div>').attr('class','card');
                     var cardBodyEl = $('<div>').attr('class','card-body');
                     $('.card-deck').append(cardEl);
@@ -146,9 +160,8 @@ function apiCallout (cityName){
                     var cardTitle = $('<h5>').attr('class','card-title'); 
                     var dateforecast =(responseforcast.list[i].dt_txt).substr(0,10);
                     console.log(dateforecast);
-                    cardTitle.text(dateforecast);
+                    cardTitle.text(dateforecast);                    
                     cardBodyEl.append(cardTitle);
-
                     var divIcon =$('<img>').attr('src','http://openweathermap.org/img/w/' + responseforcast.list[i].weather[0].icon + '.png');
                     cardBodyEl.append(divIcon);
                     var ptempEl = $('<p>').attr('class','card-text dailytemperature').text('Temp: '+ parseInt((9/5)*(parseInt(responseforcast.list[i].main.temp) - 273) + 32)+' °F');   
@@ -156,16 +169,13 @@ function apiCallout (cityName){
                     var pHumidity = $('<p>').attr('class','card-text dailytemperature').text('Humidity: '+ responseforcast.list[i].main.humidity +' %');
                     cardBodyEl.append(pHumidity);              
                 
-                }                
+                }            
 
-            }
+            }    
             
-            
-        }); 
+        });       
         
-        
-        }); 
-             
+        });      
         
 }
 
@@ -173,7 +183,8 @@ function apiCallout (cityName){
 //Conditin to check if there are values in the local storage so can be loaded in the list of cities
 if (localStorage.getItem("Cities") !== null){
     Cities=JSON.parse(localStorage.getItem("Cities"));
-    loadCities(Cities.length);      
+    loadCities(Cities.length);     
+    apiCallout(Cities[Cities.length-1]); // Loading date for the last searched city     
 }
 
 //Calling callout function every time a city is chooce from Cities List
