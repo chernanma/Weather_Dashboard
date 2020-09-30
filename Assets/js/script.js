@@ -21,7 +21,7 @@ $('#search').on('click',function(){
             return;
                     
         }else{
-
+            // Callout to validate if the city or any value entered by the user exists or is valid
             var apiKey = '4125da2ecdcd852c08efeec865a349a6';    
             var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+$('#searchInput').val()+"&appid="+apiKey;
             var status;
@@ -30,7 +30,7 @@ $('#search').on('click',function(){
                 method: "GET",
             })    
                 .done(function(){
-            //Condition to check if city name entered exist in list of cities searched previusly, to prevent having duplicates in list of cities
+                //Condition to check if city name entered exist in list of cities searched previusly, to prevent having duplicates in list of cities
                 if (jQuery.inArray( Input, Cities )=== -1){
                     console.log(Input);
                     Cities.push(Input); //Adding cities to array 
@@ -59,18 +59,12 @@ $('#search').on('click',function(){
             })
         
             .fail(function(){
+                
                 alert('City was not found');
                 $('#searchInput').val("");
             });
-        }
-
-        
-       
-   
+        }   
 });
-    
-
-
 });
 
 // Function to load all Cities from local storage if there is any
@@ -197,43 +191,6 @@ function apiCallout (cityName){
         
 }
 
-function lookError (){
-    var apiKey = '4125da2ecdcd852c08efeec865a349a6';    
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+$('#searchInput').val()+"&appid="+apiKey;
-    var status;
-    $.ajax({
-        url: queryURL,
-        method: "GET",
-        async: false,
-        statusCode: {
-            404: function(responseObject, textStatus, jqXHR) {
-                // No content found (404)
-                // This code will be executed if the server returns a 404 response
-                
-                //alert("No content found");
-                status="Fail";
-                return status;
-            },
-            503: function(responseObject, textStatus, errorThrown) {
-                // Service Unavailable (503)
-                // This code will be executed if the server returns a 503 response
-                //alert('Service Unavailable');
-                status="Fail";
-                return status ;
-            },   
-            400: function(responseObject, textStatus, errorThrown) {
-                // Service Unavailable (503)
-                // This code will be executed if the server returns a 503 response
-                //alert('Bad Request');
-                status="Fail";
-                console.log(status);
-                return status;
-            }           
-        },
-        Timeout:4000        
-    })
-
-}
 //Conditin to check if there are values in the local storage so can be loaded in the list of cities
 if (localStorage.getItem("Cities") !== null){
     Cities=JSON.parse(localStorage.getItem("Cities"));
