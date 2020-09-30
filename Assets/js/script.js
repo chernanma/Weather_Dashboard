@@ -5,52 +5,70 @@ $(document).ready(function(){
 
 //On Click Event to start search
 $('#search').on('click',function(){
-
-    $('.card-deck').empty();
-    //Getting value entered in Search input
-    var Input = $('#searchInput').val();
-    var liEl = $('<li>'); // creating Li element to insert in html page
-    
-    if ($('#searchInput').val() === ""){
-        $('#cityname').text('City Info'); 
-        // Clearing result when input is blank
-        $('.temperature').text('Temperature: ');
-        $('.humidity').text('Humidity: ');
-        $('.windspeed').text('Wind Speed: ');
-        $('.uvindex').text('UV Index: ');
-        return;
-                
-    }else{
-
-    //Condition to check if city name entered exist in list of cities searched previusly, to prevent having duplicates in list of cities
-    if (jQuery.inArray( Input, Cities )=== -1){
-        console.log(Input);
-        Cities.push(Input); //Adding cities to array 
-        console.log(Cities.length);
-        localStorage.setItem('Cities',JSON.stringify(Cities));//Saving Cities to local storage
-        
-        // Adding attributes,and appending Li element to List of cities  
-        liEl.text(Input); 
-        liEl.attr('class','list-group-item list-group-item-action');
-        liEl.attr('id',Cities.length);
-        $("#cities").prepend(liEl);
-        apiCallout(Input);
-
-    }
-    }
-    // Cleanig Cities List 
-    $('#cities').empty();
-    //Calling loadCities function to load all cities from local storage into City list
-    loadCities(Cities.length);
-
-    $('#cities li').on('click',function(){
+       
         $('.card-deck').empty();
-      apiCallout($(this).text());
-      
-    });
-    $('#searchInput').val('');
-});
+        //Getting value entered in Search input
+        var Input = $('#searchInput').val();
+        var liEl = $('<li>'); // creating Li element to insert in html page
+        
+        if ($('#searchInput').val() === ""){
+            $('#cityname').text('City Info'); 
+            // Clearing result when input is blank
+            $('.temperature').text('Temperature: ');
+            $('.humidity').text('Humidity: ');
+            $('.windspeed').text('Wind Speed: ');
+            $('.uvindex').text('UV Index: ');
+            return;
+                    
+        }else{
 
+            var apiKey = '4125da2ecdcd852c08efeec865a349a6';    
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+$('#searchInput').val()+"&appid="+apiKey;
+            var status;
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+            })    
+                .done(function(){
+            //Condition to check if city name entered exist in list of cities searched previusly, to prevent having duplicates in list of cities
+                if (jQuery.inArray( Input, Cities )=== -1){
+                    console.log(Input);
+                    Cities.push(Input); //Adding cities to array 
+                    console.log(Cities.length);
+                    localStorage.setItem('Cities',JSON.stringify(Cities));//Saving Cities to local storage
+                    
+                    // Adding attributes,and appending Li element to List of cities  
+                    liEl.text(Input); 
+                    liEl.attr('class','list-group-item list-group-item-action');
+                    liEl.attr('id',Cities.length);
+                    $("#cities").prepend(liEl);
+                    apiCallout(Input);
+
+                }
+                 // Clearing Cities List 
+                $('#cities').empty();
+                //Calling loadCities function to load all cities from local storage into City list
+                loadCities(Cities.length);
+
+                $('#cities li').on('click',function(){
+                    $('.card-deck').empty();
+                apiCallout($(this).text());
+                
+                });
+                $('#searchInput').val('');
+            })
+        
+            .fail(function(){
+                alert('City was not found');
+                $('#searchInput').val("");
+            });
+        }
+
+        
+       
+   
+});
+    
 
 
 });
@@ -179,12 +197,48 @@ function apiCallout (cityName){
         
 }
 
+function lookError (){
+    var apiKey = '4125da2ecdcd852c08efeec865a349a6';    
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+$('#searchInput').val()+"&appid="+apiKey;
+    var status;
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+        async: false,
+        statusCode: {
+            404: function(responseObject, textStatus, jqXHR) {
+                // No content found (404)
+                // This code will be executed if the server returns a 404 response
+                
+                //alert("No content found");
+                status="Fail";
+                return status;
+            },
+            503: function(responseObject, textStatus, errorThrown) {
+                // Service Unavailable (503)
+                // This code will be executed if the server returns a 503 response
+                //alert('Service Unavailable');
+                status="Fail";
+                return status ;
+            },   
+            400: function(responseObject, textStatus, errorThrown) {
+                // Service Unavailable (503)
+                // This code will be executed if the server returns a 503 response
+                //alert('Bad Request');
+                status="Fail";
+                console.log(status);
+                return status;
+            }           
+        },
+        Timeout:4000        
+    })
 
+}
 //Conditin to check if there are values in the local storage so can be loaded in the list of cities
 if (localStorage.getItem("Cities") !== null){
     Cities=JSON.parse(localStorage.getItem("Cities"));
     loadCities(Cities.length);     
-    apiCallout(Cities[Cities.length-1]); // Loading date for the last searched city     
+    apiCallout(Cities[Cities.length-1]); // Loading data for the last searched city     
 }
 
 //Calling callout function every time a city is chooce from Cities List
