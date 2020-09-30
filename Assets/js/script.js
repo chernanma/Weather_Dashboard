@@ -115,7 +115,7 @@ function apiCallout (cityName){
         lon = response.coord.lon;
         lat = response.coord.lat;
         iconcode= response.weather[0].icon;
-        iconurl="http://openweathermap.org/img/w/" + iconcode + ".png";
+        iconurl="https://openweathermap.org/img/w/" + iconcode + ".png";
      
         //inserting values into html elements
         $('#cityname').text(cityName+' '+date);
@@ -153,7 +153,7 @@ function apiCallout (cityName){
         }); 
 
         // Third API callout to pull 5 days forecast Data  
-        queryForcast = "http://api.openweathermap.org/data/2.5/forecast?q="+cityName+"&appid="+apiKey;
+        queryForcast = "https://api.openweathermap.org/data/2.5/forecast?q="+cityName+"&appid="+apiKey;
         console.log(queryForcast);   
         $.ajax({
             url: queryForcast,
@@ -174,7 +174,7 @@ function apiCallout (cityName){
                     console.log(dateforecast);
                     cardTitle.text(dateforecast);                    
                     cardBodyEl.append(cardTitle);
-                    var divIcon =$('<img>').attr('src','http://openweathermap.org/img/w/' + responseforcast.list[i].weather[0].icon + '.png');
+                    var divIcon =$('<img>').attr('src','https://openweathermap.org/img/w/' + responseforcast.list[i].weather[0].icon + '.png');
                     cardBodyEl.append(divIcon);
                     var ptempEl = $('<p>').attr('class','card-text dailytemperature').text('Temp: '+ parseInt((9/5)*(parseInt(responseforcast.list[i].main.temp) - 273) + 32)+' °F');   
                     cardBodyEl.append(ptempEl);
